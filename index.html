@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>18° Compleanno Miriam</title>
     <style>
         * {
@@ -18,13 +18,15 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden; /* Blocca lo scorrimento */
+            overflow: hidden;
         }
         .container {
-            width: 100%;
-            max-width: 500px; 
             height: 100vh;
+            /* Forza le proporzioni verticali dell'immagine (tipiche di una storia Instagram 9:16) */
+            aspect-ratio: 9 / 16; 
+            max-width: 100%;
             position: relative;
+            background-color: #000;
         }
         .screen {
             position: absolute;
@@ -37,7 +39,7 @@
         
         #screen1 {
             display: block;
-            cursor: pointer; /* Fa capire che tutta la schermata è cliccabile */
+            cursor: pointer;
         }
 
         .screen img {
@@ -49,53 +51,62 @@
 
         .btn-link {
             position: absolute;
-            background: rgba(255, 255, 255, 0); 
             cursor: pointer;
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* SCHERMATA 2 - Pulsanti Google Calendar e Google Maps */
+        /* =======================================================
+           ATTENZIONE: Ho messo uno sfondo colorato semi-trasparente (rgba) 
+           per farti vedere dove si posizionano i pulsanti sul telefono.
+           Li rimetteremo invisibili appena sono perfetti!
+           ======================================================= */
+
+        /* SCHERMATA 2 - Pulsanti ancorati in base all'altezza dello schermo (vh) */
         .btn-calendar {
-            bottom: 3%;
-            left: 24%;
+            bottom: 3.5vh;
+            left: 23%;
             width: 25%;
-            height: 6%;
+            height: 5.5vh;
             border-radius: 20px;
-            z-index: 20;
+            z-index: 30;
+            background: rgba(0, 0, 255, 0.4); /* BLU DI PROVA */
         }
         .btn-maps {
-            bottom: 3%;
-            right: 24%;
+            bottom: 3.5vh;
+            right: 23%;
             width: 25%;
-            height: 6%;
+            height: 5.5vh;
             border-radius: 20px;
-            z-index: 20;
+            z-index: 30;
+            background: rgba(255, 0, 0, 0.4); /* ROSSO DI PROVA */
         }
-        /* Area per andare alla schermata 3 toccando il resto della foto */
+        /* Area invisibile per andare avanti toccando il resto dello schermo */
         .btn-avanti-screen2 {
             top: 0;
             left: 0;
             width: 100%;
-            height: 88%;
-            z-index: 5;
+            height: 85vh;
+            z-index: 10;
         }
 
         /* SCHERMATA 3 - Pulsanti WhatsApp */
         .btn-partecipo {
-            bottom: 11.5%;
-            left: 26%;
-            width: 48%;
-            height: 5.5%;
+            bottom: 11.5vh;
+            left: 25%;
+            width: 50%;
+            height: 5.5vh;
             border-radius: 25px;
-            z-index: 10;
+            z-index: 30;
+            background: rgba(0, 255, 0, 0.4); /* VERDE DI PROVA */
         }
         .btn-non-partecipo {
-            bottom: 4.5%;
-            left: 26%;
-            width: 48%;
-            height: 5.5%;
+            bottom: 4.5vh;
+            left: 25%;
+            width: 50%;
+            height: 5.5vh;
             border-radius: 25px;
-            z-index: 10;
+            z-index: 30;
+            background: rgba(255, 165, 0, 0.4); /* ARANCIONE DI PROVA */
         }
 
         #audio-control {
@@ -126,18 +137,17 @@
 </head>
 <body>
 
-    <!-- Audio: I Gotta Feeling - Black Eyed Peas (Streaming pubblico alternativo e stabile) -->
     <audio id="bg-music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop></audio>
     <div id="audio-control" onclick="toggleAudio()">🎵</div>
 
     <div class="container">
         
-        <!-- SCHERMATA 1: Copertina - Ora cliccabile ovunque per massima compatibilità -->
+        <!-- SCHERMATA 1 -->
         <div id="screen1" class="screen" onclick="apriInvito()">
             <img src="prompt_invito.png" alt="Copertina Invito">
         </div>
 
-        <!-- SCHERMATA 2: Dettagli Location e Data -->
+        <!-- SCHERMATA 2 -->
         <div id="screen2" class="screen">
             <img src="invito_Miriam.png" alt="Dettagli Invito">
             <div class="btn-link btn-avanti-screen2" onclick="mostraSchermata(3)"></div>
@@ -145,7 +155,7 @@
             <a href="https://www.google.com/maps/search/?api=1&query=Wild+Horse+Via+S.+Pancrazio+28+Castelvecchio+AQ" target="_blank" class="btn-link btn-maps"></a>
         </div>
 
-        <!-- SCHERMATA 3: Scelta e Conferma -->
+        <!-- SCHERMATA 3 -->
         <div id="screen3" class="screen">
             <img src="conferma.png" alt="Conferma Presenza">
             <a href="https://wa.me/393471049595?text=Nome%3A%20%0ACognome%3A%20%0An.%20partecipanti%3A%20" target="_blank" class="btn-link btn-partecipo"></a>
@@ -159,15 +169,12 @@
         var audioBtn = document.getElementById('audio-control');
 
         function apriInvito() {
-            // Avvia la musica immediatamente
             audio.play().then(function() {
                 audioBtn.style.display = 'flex';
             }).catch(function(error) {
                 console.log("Audio sbloccato.", error);
                 audioBtn.style.display = 'flex';
             });
-            
-            // Passa alla seconda schermata
             mostraSchermata(2);
         }
 
