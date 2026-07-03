@@ -18,7 +18,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden; /* Blocca completamente lo scorrimento verticale */
+            overflow: hidden; /* Blocca lo scorrimento */
         }
         .container {
             width: 100%;
@@ -32,22 +32,21 @@
             left: 0;
             width: 100%;
             height: 100%;
-            display: none; /* Nasconde tutte le schermate di base */
+            display: none;
         }
         
-        /* Mostra solo la prima schermata all'inizio */
         #screen1 {
             display: block;
+            cursor: pointer; /* Fa capire che tutta la schermata è cliccabile */
         }
 
         .screen img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Adatta l'immagine allo schermo dello smartphone senza tagliarla */
+            object-fit: contain;
             display: block;
         }
 
-        /* Pulsanti invisibili sopra le immagini */
         .btn-link {
             position: absolute;
             background: rgba(255, 255, 255, 0); 
@@ -55,22 +54,14 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* SCHERMATA 1 - Pulsante APRI L'INVITO */
-        .btn-apri {
-            bottom: 11%;
-            left: 31%;
-            width: 38%;
-            height: 6%;
-            border-radius: 30px;
-        }
-
-        /* SCHERMATA 2 - Pulsanti Google Calendar, Google Maps e AVANTI */
+        /* SCHERMATA 2 - Pulsanti Google Calendar e Google Maps */
         .btn-calendar {
             bottom: 3.5%;
             left: 25%;
             width: 23%;
             height: 5%;
             border-radius: 20px;
+            z-index: 10;
         }
         .btn-maps {
             bottom: 3.5%;
@@ -78,22 +69,25 @@
             width: 23%;
             height: 5%;
             border-radius: 20px;
+            z-index: 10;
         }
-        /* Area invisibile per andare avanti nella schermata 2 (toccando la parte alta/centrale) */
+        /* Area per andare alla schermata 3 toccando il resto della foto */
         .btn-avanti-screen2 {
             top: 0;
             left: 0;
             width: 100%;
             height: 90%;
+            z-index: 5;
         }
 
-        /* SCHERMATA 3 - Pulsanti PARTECIPO e NON POSSO PARTECIPARE */
+        /* SCHERMATA 3 - Pulsanti WhatsApp */
         .btn-partecipo {
             bottom: 11.5%;
             left: 26%;
             width: 48%;
             height: 5.5%;
             border-radius: 25px;
+            z-index: 10;
         }
         .btn-non-partecipo {
             bottom: 4.5%;
@@ -101,9 +95,9 @@
             width: 48%;
             height: 5.5%;
             border-radius: 25px;
+            z-index: 10;
         }
 
-        /* Controllo audio */
         #audio-control {
             position: fixed;
             top: 20px;
@@ -132,29 +126,26 @@
 </head>
 <body>
 
-    <!-- Sottofondo Musicale: I Gotta Feeling - Black Eyed Peas -->
+    <!-- Audio: I Gotta Feeling - Black Eyed Peas (Streaming pubblico alternativo e stabile) -->
     <audio id="bg-music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop></audio>
     <div id="audio-control" onclick="toggleAudio()">🎵</div>
 
     <div class="container">
         
-        <!-- SCHERMATA 1: Copertina (prompt invito.png) -->
-        <div id="screen1" class="screen">
+        <!-- SCHERMATA 1: Copertina - Ora cliccabile ovunque per massima compatibilità -->
+        <div id="screen1" class="screen" onclick="apriInvito()">
             <img src="prompt_invito.png" alt="Copertina Invito">
-            <div class="btn-link btn-apri" onclick="mostraSchermata(2)"></div>
         </div>
 
-        <!-- SCHERMATA 2: Dettagli Location e Data (invito Miriam.png) -->
+        <!-- SCHERMATA 2: Dettagli Location e Data -->
         <div id="screen2" class="screen">
             <img src="invito_Miriam.png" alt="Dettagli Invito">
-            <!-- Toccando lo sfondo di questa schermata si va alla schermata di conferma -->
             <div class="btn-link btn-avanti-screen2" onclick="mostraSchermata(3)"></div>
-            <!-- Pulsanti per Mappe e Calendario -->
             <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=18%C2%B0+Compleanno+Miriam+%F0%9F%8E%89&dates=20260812T200000/20260813T020000&details=Ti+aspetto+per+festeggiare+insieme%21&location=Wild+Horse%2C+Via+S.+Pancrazio+28%2C+67051+Castelvecchio+%28AQ%29" target="_blank" class="btn-link btn-calendar"></a>
             <a href="https://www.google.com/maps/search/?api=1&query=Wild+Horse+Via+S.+Pancrazio+28+Castelvecchio+AQ" target="_blank" class="btn-link btn-maps"></a>
         </div>
 
-        <!-- SCHERMATA 3: Scelta e Conferma (conferma.png) -->
+        <!-- SCHERMATA 3: Scelta e Conferma -->
         <div id="screen3" class="screen">
             <img src="conferma.png" alt="Conferma Presenza">
             <a href="https://wa.me/393471049595?text=Nome%3A%20%0ACognome%3A%20%0An.%20partecipanti%3A%20" target="_blank" class="btn-link btn-partecipo"></a>
@@ -167,24 +158,25 @@
         var audio = document.getElementById('bg-music');
         var audioBtn = document.getElementById('audio-control');
 
+        function apriInvito() {
+            // Avvia la musica immediatamente
+            audio.play().then(function() {
+                audioBtn.style.display = 'flex';
+            }).catch(function(error) {
+                console.log("Audio sbloccato.", error);
+                audioBtn.style.display = 'flex';
+            });
+            
+            // Passa alla seconda schermata
+            mostraSchermata(2);
+        }
+
         function mostraSchermata(numeroSchermata) {
-            // Nasconde tutte le schermate
             document.getElementById('screen1').style.display = 'none';
             document.getElementById('screen2').style.display = 'none';
             document.getElementById('screen3').style.display = 'none';
             
-            // Mostra solo quella richiesta
             document.getElementById('screen' + numeroSchermata).style.display = 'block';
-
-            // Se passiamo alla seconda schermata, facciamo partire anche la musica
-            if (numeroSchermata === 2 && audio.paused) {
-                audio.play().then(function() {
-                    audioBtn.style.display = 'flex';
-                }).catch(function(error) {
-                    console.log("Riproduzione assistita.", error);
-                    audioBtn.style.display = 'flex';
-                });
-            }
         }
 
         function toggleAudio() {
