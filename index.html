@@ -20,7 +20,6 @@
             align-items: center;
             overflow: hidden;
         }
-        /* Il contenitore ora si adatta perfettamente alla foto reale evitando i vuoti */
         .container {
             width: 100%;
             max-width: 450px;
@@ -49,7 +48,7 @@
         .screen img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Riempie perfettamente il riquadro senza lasciare vuoti sotto */
+            object-fit: cover;
             display: block;
         }
 
@@ -59,21 +58,21 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* SCHERMATA 2 - Pulsanti Mappe e Calendario sollevati e agganciati in percentuale (%) alla foto */
+        /* SCHERMATA 2 - Abbassati leggermente dal 18% al 14.5% per centrare Maps e Calendar */
         .btn-calendar {
-            bottom: 18%;
+            bottom: 14.5%;
             left: 23%;
             width: 25%;
-            height: 6%;
+            height: 5.5%;
             border-radius: 20px;
             z-index: 30;
             background: rgba(0, 0, 255, 0.4); /* BLU */
         }
         .btn-maps {
-            bottom: 18%;
+            bottom: 14.5%;
             right: 23%;
             width: 25%;
-            height: 6%;
+            height: 5.5%;
             border-radius: 20px;
             z-index: 30;
             background: rgba(255, 0, 0, 0.4); /* ROSSO */
@@ -82,25 +81,25 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 75%;
+            height: 80%;
             z-index: 10;
         }
 
-        /* SCHERMATA 3 - Pulsanti WhatsApp sollevati in modo deciso rispetto al fondo */
+        /* SCHERMATA 3 - Abbassati dal 31%/21% al 23.5%/14% per centrare PARTECIPO e NON PARTECIPARE */
         .btn-partecipo {
-            bottom: 31%;
+            bottom: 23.5%;
             left: 21%;
             width: 58%;
-            height: 7%;
+            height: 6.5%;
             border-radius: 25px;
             z-index: 30;
             background: rgba(0, 255, 0, 0.4); /* VERDE */
         }
         .btn-non-partecipo {
-            bottom: 21%;
+            bottom: 14%;
             left: 21%;
             width: 58%;
-            height: 7%;
+            height: 6.5%;
             border-radius: 25px;
             z-index: 30;
             background: rgba(255, 165, 0, 0.4); /* OCRA */
