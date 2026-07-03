@@ -22,7 +22,6 @@
         }
         .container {
             height: 100vh;
-            /* Forza le proporzioni verticali dell'immagine (tipiche di una storia Instagram 9:16) */
             aspect-ratio: 9 / 16; 
             max-width: 100%;
             position: relative;
@@ -55,58 +54,51 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* =======================================================
-           ATTENZIONE: Ho messo uno sfondo colorato semi-trasparente (rgba) 
-           per farti vedere dove si posizionano i pulsanti sul telefono.
-           Li rimetteremo invisibili appena sono perfetti!
-           ======================================================= */
-
-        /* SCHERMATA 2 - Pulsanti ancorati in base all'altezza dello schermo (vh) */
+        /* SCHERMATA 2 - Spostati più in alto (da 3.5vh a 6.5vh) */
         .btn-calendar {
-            bottom: 3.5vh;
+            bottom: 6.5vh;
             left: 23%;
             width: 25%;
             height: 5.5vh;
             border-radius: 20px;
             z-index: 30;
-            background: rgba(0, 0, 255, 0.4); /* BLU DI PROVA */
+            background: rgba(0, 0, 255, 0.4); /* BLU DEVE SALIRE */
         }
         .btn-maps {
-            bottom: 3.5vh;
+            bottom: 6.5vh;
             right: 23%;
             width: 25%;
             height: 5.5vh;
             border-radius: 20px;
             z-index: 30;
-            background: rgba(255, 0, 0, 0.4); /* ROSSO DI PROVA */
+            background: rgba(255, 0, 0, 0.4); /* ROSSO DEVE SALIRE */
         }
-        /* Area invisibile per andare avanti toccando il resto dello schermo */
         .btn-avanti-screen2 {
             top: 0;
             left: 0;
             width: 100%;
-            height: 85vh;
+            height: 80vh;
             z-index: 10;
         }
 
-        /* SCHERMATA 3 - Pulsanti WhatsApp */
+        /* SCHERMATA 3 - Spostati più in alto e leggermente più grandi per fare centro */
         .btn-partecipo {
-            bottom: 11.5vh;
-            left: 25%;
-            width: 50%;
-            height: 5.5vh;
+            bottom: 14.5vh;
+            left: 23%;
+            width: 54%;
+            height: 6.5vh;
             border-radius: 25px;
             z-index: 30;
-            background: rgba(0, 255, 0, 0.4); /* VERDE DI PROVA */
+            background: rgba(0, 255, 0, 0.4); /* VERDE DEVE SALIRE */
         }
         .btn-non-partecipo {
-            bottom: 4.5vh;
-            left: 25%;
-            width: 50%;
-            height: 5.5vh;
+            bottom: 6.5vh;
+            left: 23%;
+            width: 54%;
+            height: 6.5vh;
             border-radius: 25px;
             z-index: 30;
-            background: rgba(255, 165, 0, 0.4); /* ARANCIONE DI PROVA */
+            background: rgba(255, 165, 0, 0.4); /* OCRA DEVE SALIRE */
         }
 
         #audio-control {
