@@ -20,21 +20,22 @@
             align-items: center;
             overflow: hidden;
         }
+        
+        /* Contenitore principale reattivo */
         .container {
             width: 100%;
-            max-width: 450px;
+            max-width: 430px;
             height: 100%;
             max-height: 100vh;
-            aspect-ratio: 9 / 16;
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
         }
+        
+        /* Schermate */
         .screen {
-            position: absolute;
-            top: 0;
-            left: 0;
+            position: relative;
             width: 100%;
             height: 100%;
             display: none;
@@ -45,66 +46,71 @@
             cursor: pointer;
         }
 
+        /* La foto ora si adatta senza essere tagliata */
         .screen img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
             display: block;
         }
 
-        .btn-link {
+        /* Area cliccabile generale per andare avanti nella Schermata 2 */
+        .btn-avanti-screen2 {
             position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 85%;
+            z-index: 10;
             cursor: pointer;
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* SCHERMATA 2 - Abbassati leggermente dal 18% al 14.5% per centrare Maps e Calendar */
+        /* Pulsanti d'azione */
+        .btn-link {
+            position: absolute;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            z-index: 30;
+        }
+
+        /* SCHERMATA 2 - Maps e Calendar molto più in basso per centrare la grafica */
         .btn-calendar {
-            bottom: 14.5%;
+            bottom: 8%;
             left: 23%;
-            width: 25%;
+            width: 24%;
             height: 5.5%;
             border-radius: 20px;
-            z-index: 30;
             background: rgba(0, 0, 255, 0.4); /* BLU */
         }
         .btn-maps {
-            bottom: 14.5%;
+            bottom: 8%;
             right: 23%;
-            width: 25%;
+            width: 24%;
             height: 5.5%;
             border-radius: 20px;
-            z-index: 30;
             background: rgba(255, 0, 0, 0.4); /* ROSSO */
         }
-        .btn-avanti-screen2 {
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 80%;
-            z-index: 10;
-        }
 
-        /* SCHERMATA 3 - Abbassati dal 31%/21% al 23.5%/14% per centrare PARTECIPO e NON PARTECIPARE */
+        /* SCHERMATA 3 - WhatsApp decisamente più in basso */
         .btn-partecipo {
-            bottom: 23.5%;
-            left: 21%;
-            width: 58%;
+            bottom: 11%;
+            left: 20%;
+            width: 60%;
             height: 6.5%;
             border-radius: 25px;
-            z-index: 30;
             background: rgba(0, 255, 0, 0.4); /* VERDE */
         }
         .btn-non-partecipo {
-            bottom: 14%;
-            left: 21%;
-            width: 58%;
+            bottom: 3%;
+            left: 20%;
+            width: 60%;
             height: 6.5%;
             border-radius: 25px;
-            z-index: 30;
             background: rgba(255, 165, 0, 0.4); /* OCRA */
         }
 
+        /* Controllo Audio */
         #audio-control {
             position: fixed;
             top: 20px;
@@ -146,7 +152,9 @@
         <!-- SCHERMATA 2 -->
         <div id="screen2" class="screen">
             <img src="invito_Miriam.png" alt="Dettagli Invito">
-            <div class="btn-link btn-avanti-screen2" onclick="mostraSchermata(3)"></div>
+            <!-- Toccando la parte alta della foto si va alla schermata 3 -->
+            <div class="btn-avanti-screen2" onclick="mostraSchermata(3)"></div>
+            <!-- Pulsanti Mappe e Calendario -->
             <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=18%C2%B0+Compleanno+Miriam+%F0%9F%8E%89&dates=20260812T200000/20260813T020000&details=Ti+aspetto+per+festeggiare+insieme%21&location=Wild+Horse%2C+Via+S.+Pancrazio+28%2C+67051+Castelvecchio+%28AQ%29" target="_blank" class="btn-link btn-calendar"></a>
             <a href="https://www.google.com/maps/search/?api=1&query=Wild+Horse+Via+S.+Pancrazio+28+Castelvecchio+AQ" target="_blank" class="btn-link btn-maps"></a>
         </div>
@@ -165,13 +173,16 @@
         var audioBtn = document.getElementById('audio-control');
 
         function apriInvito() {
+            // Mostra subito la seconda schermata senza attendere la musica
+            mostraSchermata(2);
+            
+            // Avvia la musica in modo asincrono sicuro
             audio.play().then(function() {
                 audioBtn.style.display = 'flex';
             }).catch(function(error) {
-                console.log("Audio ready.", error);
+                console.log("Riproduzione automatica bloccata dal browser, l'utente vedrà il tasto per attivarla manualmente.");
                 audioBtn.style.display = 'flex';
             });
-            mostraSchermata(2);
         }
 
         function mostraSchermata(numeroSchermata) {
