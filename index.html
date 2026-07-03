@@ -20,12 +20,17 @@
             align-items: center;
             overflow: hidden;
         }
+        /* Il contenitore ora si adatta perfettamente alla foto reale evitando i vuoti */
         .container {
-            height: 100vh;
-            aspect-ratio: 9 / 16; 
-            max-width: 100%;
+            width: 100%;
+            max-width: 450px;
+            height: 100%;
+            max-height: 100vh;
+            aspect-ratio: 9 / 16;
             position: relative;
-            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .screen {
             position: absolute;
@@ -44,7 +49,7 @@
         .screen img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover; /* Riempie perfettamente il riquadro senza lasciare vuoti sotto */
             display: block;
         }
 
@@ -54,21 +59,21 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* SCHERMATA 2 - Sollevati nettamente (portati a 13vh) */
+        /* SCHERMATA 2 - Pulsanti Mappe e Calendario sollevati e agganciati in percentuale (%) alla foto */
         .btn-calendar {
-            bottom: 13vh;
+            bottom: 18%;
             left: 23%;
             width: 25%;
-            height: 5.5vh;
+            height: 6%;
             border-radius: 20px;
             z-index: 30;
             background: rgba(0, 0, 255, 0.4); /* BLU */
         }
         .btn-maps {
-            bottom: 13vh;
+            bottom: 18%;
             right: 23%;
             width: 25%;
-            height: 5.5vh;
+            height: 6%;
             border-radius: 20px;
             z-index: 30;
             background: rgba(255, 0, 0, 0.4); /* ROSSO */
@@ -77,25 +82,25 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 75vh;
+            height: 75%;
             z-index: 10;
         }
 
-        /* SCHERMATA 3 - Sollevati molto più in alto per agganciare i tasti dorati */
+        /* SCHERMATA 3 - Pulsanti WhatsApp sollevati in modo deciso rispetto al fondo */
         .btn-partecipo {
-            bottom: 24vh;
+            bottom: 31%;
             left: 21%;
             width: 58%;
-            height: 6.5vh;
+            height: 7%;
             border-radius: 25px;
             z-index: 30;
             background: rgba(0, 255, 0, 0.4); /* VERDE */
         }
         .btn-non-partecipo {
-            bottom: 14vh;
+            bottom: 21%;
             left: 21%;
             width: 58%;
-            height: 6.5vh;
+            height: 7%;
             border-radius: 25px;
             z-index: 30;
             background: rgba(255, 165, 0, 0.4); /* OCRA */
@@ -164,13 +169,13 @@
             audio.play().then(function() {
                 audioBtn.style.display = 'flex';
             }).catch(function(error) {
-                console.log("Audio sbloccato.", error);
+                console.log("Audio ready.", error);
                 audioBtn.style.display = 'flex';
             });
             mostraSchermata(2);
         }
 
-        function montreSchermata(numeroSchermata) {
+        function mostraSchermata(numeroSchermata) {
             document.getElementById('screen1').style.display = 'none';
             document.getElementById('screen2').style.display = 'none';
             document.getElementById('screen3').style.display = 'none';
