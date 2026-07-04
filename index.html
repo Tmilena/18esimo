@@ -15,44 +15,44 @@
             height: 100%;
             background-color: #fcebe6;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             overflow: hidden;
         }
         
-        .container {
-            width: 100%;
-            max-width: 430px;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        /* ORA IMPOSTATO IN 9:16 PER ANDARE A SCHERMO INTERO SUI CELLULARI */
-        .screen-wrapper {
-            position: relative;
+        /* Pagine a tutto schermo totale */
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            max-height: 100vh;
-            aspect-ratio: 9 / 16; /* Adattamento verticale perfetto */
+            background-position: center center;
+            background-size: cover; /* Forza l'immagine a riempire tutto lo schermo del telefono */
+            background-repeat: no-repeat;
             display: none;
         }
-
-        .screen-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
+        
+        /* Assegnazione sfondi diretti alle schermate */
+        #screen1 {
             display: block;
+            background-image: url('prompt_invito.png');
+            cursor: pointer;
+        }
+        
+        #screen2 {
+            background-image: url('invito_Miriam.png');
         }
 
+        #screen3 {
+            background-image: url('conferma.png');
+        }
+
+        /* Area trasparente per avanzare da Schermata 2 a Schermata 3 */
         .btn-avanti-screen2 {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 80%;
+            height: 75%;
             z-index: 10;
             cursor: pointer;
             -webkit-tap-highlight-color: transparent;
@@ -65,40 +65,40 @@
             z-index: 30;
         }
 
-        /* COORDINATE COINVOLTE SUL FORMATO VERTICALE E COMODAMENTE ABBASSATE */
+        /* POSIZIONAMENTO PULSANTI CALIBRATO SUL TUTTO SCHERMO REALE */
         
-        /* SCHERMATA 2 - Mappe e Calendario (Riportati più in basso) */
+        /* SCHERMATA 2 - Maps e Calendar portati stabilmente in basso */
         .btn-calendar {
-            bottom: 7.2%;
-            left: 23%;
-            width: 24%;
-            height: 5.5%;
+            bottom: 6%;
+            left: 22%;
+            width: 25%;
+            height: 6%;
             border-radius: 20px;
             background: rgba(0, 0, 255, 0.4); /* BLU */
         }
         .btn-maps {
-            bottom: 7.2%;
-            right: 23%;
-            width: 24%;
-            height: 5.5%;
+            bottom: 6%;
+            right: 22%;
+            width: 25%;
+            height: 6%;
             border-radius: 20px;
             background: rgba(255, 0, 0, 0.4); /* ROSSO */
         }
 
-        /* SCHERMATA 3 - WhatsApp (Portati decisamente più in basso come richiesto) */
+        /* SCHERMATA 3 - WhatsApp portati molto in basso, vicini tra loro */
         .btn-partecipo {
-            bottom: 10%;
-            left: 20%;
-            width: 60%;
-            height: 6.2%;
+            bottom: 11%;
+            left: 15%;
+            width: 70%;
+            height: 6.5%;
             border-radius: 25px;
             background: rgba(0, 255, 0, 0.4); /* VERDE */
         }
         .btn-non-partecipo {
-            bottom: 2.2%;
-            left: 20%;
-            width: 60%;
-            height: 6.2%;
+            bottom: 3%;
+            left: 15%;
+            width: 70%;
+            height: 6.5%;
             border-radius: 25px;
             background: rgba(255, 165, 0, 0.4); /* OCRA/GIALLO */
         }
@@ -134,28 +134,20 @@
     <audio id="bg-music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop></audio>
     <div id="audio-control" onclick="toggleAudio()">🎵</div>
 
-    <div class="container">
-        
-        <!-- SCHERMATA 1 -->
-        <div id="screen1" class="screen-wrapper" style="display: block;" onclick="apriInvito()">
-            <img src="prompt_invito.png" alt="Copertina Invito">
-        </div>
+    <!-- SCHERMATA 1 -->
+    <div id="screen1" class="screen" onclick="apriInvito()"></div>
 
-        <!-- SCHERMATA 2 -->
-        <div id="screen2" class="screen-wrapper">
-            <img src="invito_Miriam.png" alt="Dettagli Invito">
-            <div class="btn-avanti-screen2" onclick="mostraSchermata(3)"></div>
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=18%C2%B0+Compleanno+Miriam+%F0%9F%8E%89&dates=20260812T200000/20260813T020000&details=Ti+aspetto+per+festeggiare+insieme%21&location=Wild+Horse%2C+Via+S.+Pancrazio+28%2C+67051+Castelvecchio+%28AQ%29" target="_blank" class="btn-link btn-calendar"></a>
-            <a href="https://www.google.com/maps/search/?api=1&query=Wild+Horse+Via+S.+Pancrazio+28+Castelvecchio+AQ" target="_blank" class="btn-link btn-maps"></a>
-        </div>
+    <!-- SCHERMATA 2 -->
+    <div id="screen2" class="screen">
+        <div class="btn-avanti-screen2" onclick="mostraSchermata(3)"></div>
+        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=18%C2%B0+Compleanno+Miriam+%F0%9F%8E%89&dates=20260812T200000/20260813T020000&details=Ti+aspetto+per+festeggiare+insieme%21&location=Wild+Horse%2C+Via+S.+Pancrazio+28%2C+67051+Castelvecchio+%28AQ%29" target="_blank" class="btn-link btn-calendar"></a>
+        <a href="https://www.google.com/maps/search/?api=1&query=Wild+Horse+Via+S.+Pancrazio+28+Castelvecchio+AQ" target="_blank" class="btn-link btn-maps"></a>
+    </div>
 
-        <!-- SCHERMATA 3 -->
-        <div id="screen3" class="screen-wrapper">
-            <img src="conferma.png" alt="Conferma Presenza">
-            <a href="https://wa.me/393471049595?text=Nome%3A%20%0ACognome%3A%20%0An.%20partecipanti%3A%20" target="_blank" class="btn-link btn-partecipo"></a>
-            <a href="https://wa.me/393471049595?text=Nome%3A%20%0ACognome%3A%20%0A%0Ami%20dispiace%20molto%20ma%20purtroppo%20non%20potr%C3%B2%20partecipare%20al%20tuo%20compleanno%20%E2%9D%A4%EF%B8%8F" target="_blank" class="btn-link btn-non-partecipo"></a>
-        </div>
-
+    <!-- SCHERMATA 3 -->
+    <div id="screen3" class="screen">
+        <a href="https://wa.me/393471049595?text=Nome%3A%20%0ACognome%3A%20%0An.%20partecipanti%3A%20" target="_blank" class="btn-link btn-partecipo"></a>
+        <a href="https://wa.me/393471049595?text=Nome%3A%20%0ACognome%3A%20%0A%0Ami%20dispiace%20molto%20ma%20purtroppo%20non%20potr%C3%B2%20partecipare%20al%20tuo%20compleanno%20%E2%9D%A4%EF%B8%8F" target="_blank" class="btn-link btn-non-partecipo"></a>
     </div>
 
     <script>
