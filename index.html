@@ -62,7 +62,7 @@
             z-index: 30;
         }
         
-        /* SCHERMATA 2 - Pulsanti invisibili calibrati alla perfezione */
+        /* SCHERMATA 2 - Posizioni millimetriche confermate */
         .btn-calendar {
             bottom: 2.8%;
             left: 22%;
@@ -78,7 +78,7 @@
             border-radius: 20px;
         }
 
-        /* SCHERMATA 3 - Pulsanti invisibili calibrati alla perfezione */
+        /* SCHERMATA 3 - Posizioni millimetriche confermate */
         .btn-partecipo {
             bottom: 11%;
             left: 15%;
@@ -131,19 +131,39 @@
     <!-- SCHERMATA 2 -->
     <div id="screen2" class="screen">
         <div class="btn-avanti-screen2" onclick="mostraSchermata(3)"></div>
-        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=18%C2%B0+Compleanno+Miriam+%F0%9F%8E%89&dates=20260812T200000/20260813T020000&details=Ti+aspetto+per+festeggiare+insieme%21&location=Wild+Horse%2C+Via+S.+Pancrazio+28%2C+67051+Castelvecchio+%28AQ%29" target="_blank" class="btn-link btn-calendar"></a>
-        <a href="https://www.google.com/maps/search/?api=1&query=Wild+Horse+Via+S.+Pancrazio+28+Castelvecchio+AQ" target="_blank" class="btn-link btn-maps"></a>
+        
+        <!-- LINK CALENDARIO UNIVERSALE (Riconosce se Apple o Android) -->
+        <a id="link-calendar" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=18%C2%B0+Compleanno+Miriam+%F0%9F%8E%89&dates=20260812T200000/20260813T020000&details=Ti+aspetto+per+festeggiare+insieme%21&location=Wild+Horse%2C+Via+S.+Pancrazio+28%2C+67051+Castelvecchio+%28AQ%29" target="_blank" class="btn-link btn-calendar"></a>
+        
+        <!-- LINK MAPPE UNIVERSALE (Apre Apple Maps su iPhone e Google Maps su Android) -->
+        <a href="https://maps.apple.com/?q=Wild+Horse+Via+S.+Pancrazio+28+Castelvecchio+AQ" target="_blank" class="btn-link btn-maps"></a>
     </div>
 
     <!-- SCHERMATA 3 -->
     <div id="screen3" class="screen">
-        <a href="https://wa.me/393349079882?text=Nome%3A%20%0ACognome%3A%20%0An.%20partecipanti%3A%20" target="_blank" class="btn-link btn-partecipo"></a>
-        <a href="https://wa.me/393349079882?text=Nome%3A%20%0ACognome%3A%20%0A%0Ami%20dispiace%20molto%20ma%20purtroppo%20non%20potr%C3%B2%20partecipare%20al%20tuo%20compleanno%20%E2%9D%A4%EF%B8%8F" target="_blank" class="btn-link btn-non-partecipo"></a>
+        <a href="https://wa.me/393471049595?text=Nome%3A%20%0ACognome%3A%20%0An.%20partecipanti%3A%20" target="_blank" class="btn-link btn-partecipo"></a>
+        <a href="https://wa.me/393471049595?text=Nome%3A%20%0ACognome%3A%20%0A%0Ami%20dispiace%20molto%20ma%20purtroppo%20non%20potr%C3%B2%20partecipare%20al%20tuo%20compleanno%20%E2%9D%A4%EF%B8%8F" target="_blank" class="btn-link btn-non-partecipo"></a>
     </div>
 
     <script>
         var audio = document.getElementById('bg-music');
         var audioBtn = document.getElementById('audio-control');
+
+        // Controllo automatico per ottimizzare il calendario su dispositivi Apple
+        function sistemaLinkApple() {
+            var isApple = /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent) && !window.MSStream;
+            if (isApple) {
+                // Se è un iPhone, reindirizziamo a un file di evento universale iCal (.ics)
+                // Questo permette ad Apple Calendar di aprirsi all'istante
+                var calendarBtn = document.getElementById('link-calendar');
+                
+                // Opzione ottimale: usiamo un generatore web pubblico per non farti creare file esterni
+                calendarBtn.href = "https://datebook.ams3.digitaloceanspaces.com/sub/ics?title=18%C2%B0%20Compleanno%20Miriam%20%F0%9F%8E%89&start=2026-08-12T20:00:00&end=2026-08-13T02:00:00&description=Ti%20aspetto%20per%20festeggiare%20insieme!&location=Wild%20Horse%2C%20Via%20S.%20Pancrazio%2028%2C%2067051%20Castelvecchio%20(AQ)";
+            }
+        }
+        
+        // Esegui il controllo all'avvio
+        sistemaLinkApple();
 
         function apriInvito() {
             mostraSchermata(2);
